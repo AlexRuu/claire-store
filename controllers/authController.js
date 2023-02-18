@@ -1,6 +1,11 @@
 const User = require("../models/User");
+const Token = require("../models/Token");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
+const { createTokenUser, attachCookiesToResponse } = require("../utils");
+const crypto = require("crypto");
+
+// Need to add some authentication stuff such as verify email, send email, set up refresh token and such
 
 const register = async (req, res) => {
   const { email, firstName, lastName, password } = req.body;
@@ -22,14 +27,44 @@ const register = async (req, res) => {
     password,
     role,
   });
+
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 
 const login = async (req, res) => {
-  res.send("yeehaw");
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new CustomError.BadRequestError(
+      "Please provide a valid email and/or password"
+    );
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.UnauthenticatedError(
+      "Incorrect username or password"
+    );
+  }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new CustomError.UnauthenticatedError(
+      "Incorrect username or password"
+    );
+  }
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
 const logout = async (req, res) => {
-  res.send("lesgo");
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now() + 1000),
+  });
+  res.status(StatusCodes.OK).json({ msg: "User logged out!" });
 };
 
 module.exports = {
