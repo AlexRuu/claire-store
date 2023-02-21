@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { nav } from "../data";
+import { useAuthContext } from "../context/auth-context";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { user, logoutUser } = useAuthContext();
 
   useEffect(() => {
     const scroll = () => {
@@ -47,6 +49,11 @@ const Navbar = () => {
             );
           })}
         </ul>
+        {user ? (
+          <button onClick={() => logoutUser()}>Logout</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </nav>
     </section>
   );
