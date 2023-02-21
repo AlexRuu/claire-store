@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import SharedLayout from "./pages/SharedLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgotpass" element={<ForgotPassword />} />
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
