@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     try {
       await axios.delete("/api/auth/logout");
+      removeUser();
     } catch (error) {
       console.log(error);
     }
