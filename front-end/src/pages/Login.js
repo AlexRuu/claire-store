@@ -18,10 +18,7 @@ const Login = () => {
     const { email, password } = values;
     const loginUser = { email, password };
     try {
-      const data = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        loginUser
-      );
+      const data = await axios.post("/api/auth/login", loginUser);
       setValues({ email: "", password: "" });
       saveUser(data.user);
       navigate("/");
