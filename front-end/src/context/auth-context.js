@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       // Might change the url for the get
-      const { data } = await axios.get("/api/user/profile");
+      const { data } = await axios.get("/api/profile");
       saveUser(data.user);
     } catch (error) {
       removeUser();

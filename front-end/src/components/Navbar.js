@@ -7,6 +7,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { user, logoutUser } = useAuthContext();
 
+  console.log(user);
   useEffect(() => {
     const scroll = () => {
       setScrolled((scrolled) => {
