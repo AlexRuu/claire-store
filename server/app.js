@@ -19,6 +19,7 @@ const connectDB = require("./db/connect");
 
 // Routers
 const authRouter = require("./routes/authRoute");
+const userRouter = require("./routes/userRoute");
 
 // Middlewares
 const notFoundMiddleware = require("./middleware/not-found");
@@ -45,17 +46,18 @@ app.use(fileUpload());
 
 // Routes.use
 app.use("/api/auth", authRouter);
+app.use("/api/profile", userRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 // Port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 // Start Server
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
-    app.listen(port, console.log("Server is running..."));
+    app.listen(port, console.log(`Server running on port ${port}`));
   } catch (error) {
     console.log(error);
   }
