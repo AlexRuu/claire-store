@@ -1,0 +1,29 @@
+.nav {
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 99;
+    padding: 0;
+    transition: transform 250ms ease-in, margin 250ms ease-in;
+    background-color: #eef4f7;
+    margin-bottom: 20px;    
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ul {
+        list-style-type: none;
+        gap: 2rem;
+        display: flex;
+    }
+
+    a {
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+}

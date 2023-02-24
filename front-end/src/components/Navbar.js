@@ -7,7 +7,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { user, logoutUser } = useAuthContext();
 
-  console.log(user);
   useEffect(() => {
     const scroll = () => {
       setScrolled((scrolled) => {
@@ -34,7 +33,10 @@ const Navbar = () => {
 
   return (
     <section className={`nav ${scrolled ? "scrolled" : ""}`}>
-      <nav>
+      <nav className="navbar">
+        <div>
+          <Link to="/">Clurr's.Studio</Link>
+        </div>
         <ul>
           {nav.map((link) => {
             const { id, name, url } = link;
@@ -51,7 +53,14 @@ const Navbar = () => {
           })}
         </ul>
         {user ? (
-          <button onClick={() => logoutUser()}>Logout</button>
+          <button
+            className="log-button"
+            onClick={() => {
+              logoutUser();
+            }}
+          >
+            logout
+          </button>
         ) : (
           <Link to="/login">Login</Link>
         )}
