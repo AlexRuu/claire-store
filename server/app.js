@@ -17,6 +17,14 @@ const mongoSanitize = require("express-mongo-sanitize");
 // Database
 const connectDB = require("./db/connect");
 
+// Cloudinary
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API,
+  api_secret: process.env.CLOUD_SECRET,
+});
+
 // Routers
 const authRouter = require("./routes/authRoute");
 const userRouter = require("./routes/userRoute");
@@ -40,6 +48,7 @@ app.use(xss());
 app.use(mongoSanitize());
 
 app.use(express.json());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(express.static("./public"));
