@@ -7,6 +7,7 @@ const {
   updateProduct,
   getSingleProduct,
   deleteProduct,
+  uploadImage,
 } = require("../controllers/productController");
 
 const {
@@ -18,6 +19,10 @@ router
   .route("/")
   .post(authorizePermissions("admin"), createProduct)
   .get(getAllProducts);
+
+router
+  .route("/uploadImage")
+  .post([authenticateUser, authorizePermissions("admin")], uploadImage);
 
 router
   .route("/:id")
