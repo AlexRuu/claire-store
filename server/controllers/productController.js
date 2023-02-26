@@ -36,7 +36,7 @@ const updateProduct = async (req, res) => {
   });
 
   if (!product) {
-    throw new CustomError.NotFoundError("This product is not availabl...");
+    throw new CustomError.NotFoundError("This product is not available...");
   }
 
   res.status(StatusCodes.OK).json({ product });
