@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const CustomError = require("../errors");
 const fs = require("fs");
 
@@ -57,12 +57,28 @@ const deleteProduct = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-  const photo = await cloudinary.uploader.upload(req.files.image.tempFilePath, {
-    use_filename: true,
-    folder: "file-upload",
+  const images = req.files.image;
+  const results = await Promise.all(
+    images.map((image) => {
+      return cloudinary.uploader.upload(image.tempFilePath, {
+        use_filename: true,
+        folder: "Clurr Store",
+      });
+    })
+  );
+  results.map((result) => {
+    console.log(result.secure_url);
   });
-  fs.unlinkSync(req.files.image.tempFilePath);
-  return res.status(StatusCodes.OK).json({ image: { src: photo.secure_url } });
+  // const result = await cloudinary.uploader.upload(
+  //   req.files.image.tempFilePath,
+  //   {
+  //     use_filename: true,
+  //     folder: "Clurr Store",
+  //   }
+  // );
+  // console.log(result);
+  // fs.unlinkSync(req.files.image.tempFilePath);
+  // return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
 };
 
 module.exports = {

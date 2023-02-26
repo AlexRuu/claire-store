@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  authorizePermissions,
+  authenticateUser,
+} = require("../middleware/authentication");
+
+const {
   getAllProducts,
   createProduct,
   updateProduct,
@@ -10,14 +15,9 @@ const {
   uploadImage,
 } = require("../controllers/productController");
 
-const {
-  authorizePermissions,
-  authenticateUser,
-} = require("../middleware/authentication");
-
 router
   .route("/")
-  .post(authorizePermissions("admin"), createProduct)
+  .post([authenticateUser, authorizePermissions("admin")], createProduct)
   .get(getAllProducts);
 
 router

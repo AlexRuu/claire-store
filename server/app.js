@@ -52,7 +52,7 @@ app.use(fileUpload({ useTempFiles: true }));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(express.static("./public"));
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // Routes.use
 app.use("/api/auth", authRouter);
