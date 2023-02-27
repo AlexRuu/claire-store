@@ -23,7 +23,37 @@ const getSingleProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
   req.body.user = req.user.userId;
-  const product = await Product.create(req.body);
+  let images = req.files.image;
+  let results;
+  let imageLinks = [];
+  if (images.length > 1) {
+    results = await Promise.all(
+      images.map((image) => {
+        return cloudinary.uploader.upload(image.tempFilePath, {
+          use_filename: true,
+          folder: "Clurr Store",
+        });
+      })
+    );
+  } else {
+    results = await cloudinary.uploader.upload(images.tempFilePath, {
+      use_filename: true,
+      folder: "Clurr Store",
+    });
+  }
+  if (results.length > 1) {
+    results.map((result) => {
+      imageLinks.push(result.secure_url);
+    });
+    return imageLinks;
+  } else {
+    imageLinks.push(results.secure_url);
+  }
+
+  const newProduct = { image: imageLinks, ...req.body };
+
+  const product = await Product.create(newProduct);
+  fs.unlinkSync(req.files.image.tempFilePath);
   res.status(StatusCodes.CREATED).json({ product });
 };
 
@@ -56,36 +86,10 @@ const deleteProduct = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Product has been removed!" });
 };
 
-const uploadImage = async (req, res) => {
-  const images = req.files.image;
-  const results = await Promise.all(
-    images.map((image) => {
-      return cloudinary.uploader.upload(image.tempFilePath, {
-        use_filename: true,
-        folder: "Clurr Store",
-      });
-    })
-  );
-  results.map((result) => {
-    console.log(result.secure_url);
-  });
-  // const result = await cloudinary.uploader.upload(
-  //   req.files.image.tempFilePath,
-  //   {
-  //     use_filename: true,
-  //     folder: "Clurr Store",
-  //   }
-  // );
-  // console.log(result);
-  // fs.unlinkSync(req.files.image.tempFilePath);
-  // return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
-};
-
 module.exports = {
   getAllProducts,
   createProduct,
   updateProduct,
   getSingleProduct,
   deleteProduct,
-  uploadImage,
 };
