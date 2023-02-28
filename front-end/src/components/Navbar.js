@@ -53,14 +53,17 @@ const Navbar = () => {
           })}
         </ul>
         {user ? (
-          <button
-            className="log-button"
-            onClick={() => {
-              logoutUser();
-            }}
-          >
-            logout
-          </button>
+          <div>
+            <Link to="/profile">Profile</Link>
+            <button
+              className="log-button"
+              onClick={() => {
+                logoutUser();
+              }}
+            >
+              logout
+            </button>
+          </div>
         ) : (
           <Link to="/login">Login</Link>
         )}

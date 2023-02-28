@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      // Might change the url for the get
       const { data } = await axios.get("/api/profile");
       saveUser(data.user);
     } catch (error) {
@@ -33,10 +32,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUser();
+    //eslint-disable-next-line
   }, []);
 
   return (
-    <AuthContext.Provider value={{ saveUser, user, logoutUser }}>
+    <AuthContext.Provider value={{ saveUser, user, logoutUser, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );
