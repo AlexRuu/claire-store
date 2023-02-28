@@ -3,9 +3,12 @@ import axios from "axios";
 import FormRow from "../components/FormRow";
 import { useAuthContext } from "../context/auth-context";
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login = () => {
-  const { saveUser, user, fetchUser } = useAuthContext();
+  const { user } = useSelector((state) => state.auth);
+
+  // const { saveUser, user, fetchUser } = useAuthContext();
   const navigate = useNavigate();
   const [values, setValues] = useState({ email: "", password: "" });
 

@@ -6,16 +6,11 @@ export const nav = [
   },
   {
     id: 2,
-    name: "Store",
-    url: "/store",
-  },
-  {
-    id: 3,
     name: "About",
     url: "/about",
   },
   {
-    id: 4,
+    id: 3,
     name: "Contact",
     url: "/contact",
   },

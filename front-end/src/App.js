@@ -1,12 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Protected Route
-import ProtectedRoute from "./pages/ProtectedRoute";
+// import ProtectedRoute from "./pages/ProtectedRoute";
 
 // Pages
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Store from "./pages/Store";
 import Contact from "./pages/Contact";
 import SharedLayout from "./pages/SharedLayout";
 import Login from "./pages/Login";
@@ -37,7 +36,6 @@ function App() {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="store" element={<Store />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" />
         </Route>
