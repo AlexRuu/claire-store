@@ -33,7 +33,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUser();
-    // eslint-disable-next-line
   }, []);
 
   return (
