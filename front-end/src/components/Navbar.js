@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../slices/authSlice";
 import { NavLink, Link } from "react-router-dom";
 import { nav } from "../data";
-import { useAuthContext } from "../context/auth-context";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const { user, logoutUser } = useAuthContext();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const scroll = () => {
@@ -58,7 +60,7 @@ const Navbar = () => {
             <button
               className="log-button"
               onClick={() => {
-                logoutUser();
+                dispatch(logoutUser());
               }}
             >
               logout

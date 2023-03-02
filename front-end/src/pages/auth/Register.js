@@ -1,5 +1,5 @@
 import React from "react";
-import FormRow from "../components/FormRow";
+import FormRow from "../../components/FormRow";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -23,7 +23,7 @@ const Register = () => {
     const registerNewUser = { firstName, lastName, email, password };
 
     try {
-      const { data } = await axios.post("/api/auth/register", registerNewUser);
+      await axios.post("/api/auth/register", registerNewUser);
       setValues({
         firstName: "",
         lastName: "",

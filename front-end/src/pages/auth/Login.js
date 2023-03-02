@@ -1,12 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
-import FormRow from "../components/FormRow";
-import { useAuthContext } from "../context/auth-context";
+import FormRow from "../../components/FormRow";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { fetchUser, loginUser } from "../../slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   // const { saveUser, user, fetchUser } = useAuthContext();
   const navigate = useNavigate();
@@ -19,11 +19,10 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = values;
-    const loginUser = { email, password };
+    const user = { email, password };
     try {
-      const data = await axios.post("/api/auth/login", loginUser);
-      fetchUser();
-      saveUser(data.user);
+      dispatch(loginUser(user));
+      dispatch(fetchUser());
       setValues({ email: "", password: "" });
       navigate("/");
     } catch (error) {
