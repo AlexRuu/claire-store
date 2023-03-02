@@ -37,6 +37,7 @@ const ProductSchema = new mongoose.Schema(
     },
     image: {
       type: [String],
+      required: [true, "Please upload at least 1 product image"],
     },
     category: {
       type: String,

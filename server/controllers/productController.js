@@ -43,17 +43,22 @@ const createProduct = async (req, res) => {
   }
   if (results.length > 1) {
     results.map((result) => {
-      imageLinks.push(result.secure_url);
+      return imageLinks.push(result.secure_url);
     });
-    return imageLinks;
   } else {
-    imageLinks.push(results.secure_url);
+    return imageLinks.push(results.secure_url);
   }
 
   const newProduct = { image: imageLinks, ...req.body };
 
   const product = await Product.create(newProduct);
-  fs.unlinkSync(req.files.image.tempFilePath);
+  if (images.length > 1) {
+    images.map((image) => {
+      return fs.unlinkSync(image.tempFilePath);
+    });
+  } else {
+    return fs.unlinkSync(req.files.image.tempFilePath);
+  }
   res.status(StatusCodes.CREATED).json({ product });
 };
 
