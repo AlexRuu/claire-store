@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 import SharedLayout from "./pages/SharedLayout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import ForgotPassword from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import Profile from "./pages/Profile";
 import CreateProduct from "./pages/Products/CreateProduct";
 
