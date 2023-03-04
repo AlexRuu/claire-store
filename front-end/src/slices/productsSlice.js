@@ -18,6 +18,18 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const createProduct = createAsyncThunk(
+  "createProduct/products",
+  async (item, thunkAPI) => {
+    try {
+      const { data } = await axios.post("/api/products", item);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Cannot create product");
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -31,7 +43,10 @@ const productsSlice = createSlice({
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.items = [];
-      });
+      })
+      .addCase(createProduct.pending, (state) => {})
+      .addCase(createProduct.fulfilled, (state, action) => {})
+      .addCase(createProduct.rejected, (state, action) => {});
   },
 });
 
