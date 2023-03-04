@@ -28,7 +28,6 @@ const productsSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.items = action.payload.products;
         state.count = action.payload.count;
-        console.log(state.items);
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.items = [];

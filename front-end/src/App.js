@@ -39,9 +39,10 @@ function App() {
           <Route
             path="create"
             element={
-              <ProtectedRoute>
-                <CreateProduct />
-              </ProtectedRoute>
+              // Protected product may or may not be necessary
+              // <ProtectedRoute>
+              <CreateProduct />
+              // </ProtectedRoute>
             }
           />
           <Route path="*" />

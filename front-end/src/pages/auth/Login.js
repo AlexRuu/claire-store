@@ -33,12 +33,13 @@ const Login = () => {
     return <h1>You're already logged in...</h1>;
   } else {
     return (
-      <section>
+      <section className="login">
         <form className="login-form" onSubmit={onSubmit}>
           <FormRow
             type="email"
             name="email"
             values={values.email}
+            placeholder="example@email.com"
             onChange={handleChange}
           />
           <FormRow
@@ -47,9 +48,11 @@ const Login = () => {
             value={values.password}
             onChange={handleChange}
           />
-          <button type="submit">Login</button>
+          <button type="submit" className="login-button">
+            Login
+          </button>
           <p>
-            <Link to="/register">Register</Link>
+            <Link to="/register">Sign Up</Link>
           </p>
         </form>
       </section>
